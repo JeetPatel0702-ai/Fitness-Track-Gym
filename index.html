@@ -280,7 +280,7 @@
                         <li><i class="fas fa-check"></i> Cardio & Strength Area</li>
                         <li><i class="fas fa-check"></i> Locker Facility</li>
                     </ul>
-                    <a href="#contact" class="btn btn-outline-gold">GET STARTED <i class="fas fa-arrow-right"></i></a>
+                    <a href="#contact" class="btn btn-outline-gold select-plan-btn" data-package="Starter (1 Month)">GET STARTED <i class="fas fa-arrow-right"></i></a>
                 </div>
 
                 <div class="plan-card popular reveal">
@@ -297,7 +297,7 @@
                         <li><i class="fas fa-check"></i> Locker Facility</li>
                         <li><i class="fas fa-check"></i> Fitness Assessment</li>
                     </ul>
-                    <a href="#contact" class="btn btn-gold">GET STARTED <i class="fas fa-arrow-right"></i></a>
+                    <a href="#contact" class="btn btn-gold select-plan-btn" data-package="Popular (3 Months)">GET STARTED <i class="fas fa-arrow-right"></i></a>
                 </div>
 
                 <div class="plan-card reveal">
@@ -313,7 +313,7 @@
                         <li><i class="fas fa-check"></i> Locker Facility</li>
                         <li><i class="fas fa-check"></i> Fitness Assessment</li>
                     </ul>
-                    <a href="#contact" class="btn btn-outline-gold">GET STARTED <i class="fas fa-arrow-right"></i></a>
+                    <a href="#contact" class="btn btn-outline-gold select-plan-btn" data-package="Value (6 Months)">GET STARTED <i class="fas fa-arrow-right"></i></a>
                 </div>
 
                 <div class="plan-card reveal">
@@ -329,7 +329,7 @@
                         <li><i class="fas fa-check"></i> Locker Facility</li>
                         <li><i class="fas fa-check"></i> Fitness Assessment</li>
                     </ul>
-                    <a href="#contact" class="btn btn-outline-gold">GET STARTED <i class="fas fa-arrow-right"></i></a>
+                    <a href="#contact" class="btn btn-outline-gold select-plan-btn" data-package="Dedicated (12 Months)">GET STARTED <i class="fas fa-arrow-right"></i></a>
                 </div>
 
                 <div class="plan-card reveal">
@@ -345,7 +345,7 @@
                         <li><i class="fas fa-check"></i> Locker Facility</li>
                         <li><i class="fas fa-check"></i> Priority Support</li>
                     </ul>
-                    <a href="#contact" class="btn btn-outline-gold">GET STARTED <i class="fas fa-arrow-right"></i></a>
+                    <a href="#contact" class="btn btn-outline-gold select-plan-btn" data-package="Elite (24 Months)">GET STARTED <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
 
@@ -360,19 +360,19 @@
                         <span class="pt-duration">4 Weeks</span>
                         <span class="pt-sessions">12 Sessions</span>
                         <span class="pt-price">₹9,000</span>
-                        <a href="#contact" class="btn btn-crimson-sm">BOOK NOW</a>
+                        <a href="#contact" class="btn btn-crimson-sm select-plan-btn" data-package="PT (4 Weeks)">BOOK NOW</a>
                     </div>
                     <div class="pt-card">
                         <span class="pt-duration">12 Weeks</span>
                         <span class="pt-sessions">36 Sessions</span>
                         <span class="pt-price">₹25,000</span>
-                        <a href="#contact" class="btn btn-crimson-sm">BOOK NOW</a>
+                        <a href="#contact" class="btn btn-crimson-sm select-plan-btn" data-package="PT (12 Weeks)">BOOK NOW</a>
                     </div>
                     <div class="pt-card">
                         <span class="pt-duration">25 Weeks</span>
                         <span class="pt-sessions">75 Sessions</span>
                         <span class="pt-price">₹45,000</span>
-                        <a href="#contact" class="btn btn-crimson-sm">BOOK NOW</a>
+                        <a href="#contact" class="btn btn-crimson-sm select-plan-btn" data-package="PT (25 Weeks)">BOOK NOW</a>
                     </div>
                 </div>
             </div>
@@ -634,6 +634,19 @@
                             <option value="General Fitness">General Fitness</option>
                             <option value="Yoga / Flexibility">Yoga / Flexibility</option>
                             <option value="Personal Training">Personal Training</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <select name="package" required id="formPackage">
+                            <option value="" disabled selected>Select Plan / Package</option>
+                            <option value="Starter (1 Month)">Starter (1 Month)</option>
+                            <option value="Popular (3 Months)">Popular (3 Months)</option>
+                            <option value="Value (6 Months)">Value (6 Months)</option>
+                            <option value="Dedicated (12 Months)">Dedicated (12 Months)</option>
+                            <option value="Elite (24 Months)">Elite (24 Months)</option>
+                            <option value="PT (4 Weeks)">PT (4 Weeks)</option>
+                            <option value="PT (12 Weeks)">PT (12 Weeks)</option>
+                            <option value="PT (25 Weeks)">PT (25 Weeks)</option>
+                            <option value="Supplement Query">Supplement Query</option>
                             <option value="Other">Other</option>
                         </select>
                         <button type="submit" class="btn btn-gold pulse-btn full-width" id="formSubmit">
