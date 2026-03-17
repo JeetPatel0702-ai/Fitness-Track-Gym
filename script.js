@@ -67,6 +67,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // ===== PRE-SELECT PACKAGE IN FORM =====
+    const selectPlanBtns = document.querySelectorAll('.select-plan-btn');
+    const formPackage = document.getElementById('formPackage');
+    
+    selectPlanBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const packageValue = btn.getAttribute('data-package');
+            if (formPackage && packageValue) {
+                formPackage.value = packageValue;
+            }
+        });
+    });
+
     // ===== COUNTER ANIMATION =====
     const statNumbers = document.querySelectorAll('.stat-number');
     let countersAnimated = false;
@@ -169,7 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ===== CONTACT FORM =====
+    // ===== CONTACT FORM (Real Formspree Submission) =====
     const contactForm = document.getElementById('contactForm');
     if (contactForm) {
         contactForm.addEventListener('submit', (e) => {
@@ -180,18 +193,36 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> SENDING...';
             submitBtn.disabled = true;
 
-            // Simulate form submission (replace with actual FormSpree or API)
-            setTimeout(() => {
-                submitBtn.innerHTML = '<i class="fas fa-check"></i> CONSULTATION BOOKED!';
-                submitBtn.style.background = 'linear-gradient(135deg, #4CAF50, #66BB6A)';
-                
+            const formData = new FormData(contactForm);
+
+            fetch(contactForm.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    submitBtn.innerHTML = '<i class="fas fa-check"></i> CONSULTATION BOOKED!';
+                    submitBtn.style.background = 'linear-gradient(135deg, #4CAF50, #66BB6A)';
+                    contactForm.reset();
+                } else {
+                    submitBtn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> ERROR! TRY AGAIN';
+                    submitBtn.style.background = 'linear-gradient(135deg, #D32F2F, #FF1744)';
+                }
+            })
+            .catch(() => {
+                submitBtn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> ERROR! TRY AGAIN';
+                submitBtn.style.background = 'linear-gradient(135deg, #D32F2F, #FF1744)';
+            })
+            .finally(() => {
                 setTimeout(() => {
                     submitBtn.innerHTML = originalText;
                     submitBtn.style.background = '';
                     submitBtn.disabled = false;
-                    contactForm.reset();
                 }, 3000);
-            }, 1500);
+            });
         });
     }
 
@@ -218,5 +249,55 @@ document.addEventListener('DOMContentLoaded', () => {
     planCards.forEach((card, i) => {
         card.style.transitionDelay = `${i * 0.08}s`;
     });
+
+    // ===== FLOATING WHATSAPP BUTTON =====
+    const whatsappFloat = document.getElementById('whatsappFloat');
+    const whatsappWidget = document.getElementById('whatsappWidget');
+    const whatsappClose = document.getElementById('whatsappClose');
+    const whatsappSend = document.getElementById('whatsappSend');
+    const whatsappInput = document.getElementById('whatsappInput');
+
+    if (whatsappFloat) {
+        // Show floating button after 1 second
+        setTimeout(() => whatsappFloat.classList.add('visible'), 1000);
+
+        // Toggle chat widget
+        whatsappFloat.addEventListener('click', () => {
+            if (whatsappWidget.classList.contains('active')) {
+                whatsappWidget.classList.remove('active');
+            } else {
+                whatsappWidget.classList.add('active');
+            }
+        });
+
+        // Close widget
+        if (whatsappClose) {
+            whatsappClose.addEventListener('click', (e) => {
+                e.stopPropagation();
+                whatsappWidget.classList.remove('active');
+            });
+        }
+
+        // Send message via WhatsApp
+        if (whatsappSend) {
+            whatsappSend.addEventListener('click', () => {
+                const message = whatsappInput ? whatsappInput.value.trim() : '';
+                const defaultMsg = 'Hi! I am interested in joining Fitness Track Gym. Please share more details.';
+                const finalMsg = message || defaultMsg;
+                const url = `https://wa.me/919909209698?text=${encodeURIComponent(finalMsg)}`;
+                window.open(url, '_blank');
+            });
+        }
+
+        // Send on Enter key
+        if (whatsappInput) {
+            whatsappInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    whatsappSend.click();
+                }
+            });
+        }
+    }
 
 });
