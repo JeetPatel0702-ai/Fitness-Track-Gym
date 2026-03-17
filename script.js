@@ -182,46 +182,41 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ===== CONTACT FORM (Real Formspree Submission) =====
+    // ===== CONTACT FORM (Google Sheets Submission) =====
     const contactForm = document.getElementById('contactForm');
     if (contactForm) {
         contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
+            e.preventDefault(); // Stop page from redirecting
+            
             const submitBtn = document.getElementById('formSubmit');
             const originalText = submitBtn.innerHTML;
             
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> SENDING...';
             submitBtn.disabled = true;
 
-            const formData = new FormData(contactForm);
-
             fetch(contactForm.action, {
                 method: 'POST',
-                body: formData,
-                headers: {
-                    'Accept': 'application/json'
-                }
+                mode: 'no-cors',
+                body: new FormData(contactForm)
             })
             .then(response => {
-                if (response.ok) {
-                    submitBtn.innerHTML = '<i class="fas fa-check"></i> CONSULTATION BOOKED!';
-                    submitBtn.style.background = 'linear-gradient(135deg, #4CAF50, #66BB6A)';
-                    contactForm.reset();
-                } else {
-                    submitBtn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> ERROR! TRY AGAIN';
-                    submitBtn.style.background = 'linear-gradient(135deg, #D32F2F, #FF1744)';
-                }
+                // With 'no-cors', the response status is opaque (0), so we assume success if no network error occurred.
+                submitBtn.innerHTML = '<i class="fas fa-check"></i> WE WILL CONTACT YOU SOON!';
+                submitBtn.style.background = 'linear-gradient(135deg, #4CAF50, #66BB6A)';
+                contactForm.reset();
             })
-            .catch(() => {
+            .catch(error => {
                 submitBtn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> ERROR! TRY AGAIN';
                 submitBtn.style.background = 'linear-gradient(135deg, #D32F2F, #FF1744)';
+                console.error('Submission Error:', error);
             })
             .finally(() => {
+                // Reset button back to normal after 5 seconds
                 setTimeout(() => {
                     submitBtn.innerHTML = originalText;
                     submitBtn.style.background = '';
                     submitBtn.disabled = false;
-                }, 3000);
+                }, 5000);
             });
         });
     }
